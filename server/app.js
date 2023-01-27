@@ -9,15 +9,20 @@ require('dotenv').config();
 const app = express();
 
 //db
-
+mongoose.
+    connect(process.env.MONGO_URI, {
+        useNewURLParser: true,
+        useUnifiedTopology: true,
+    })
+.then(() => console.log('DB connected')).catch(err => console.log('DB connection error', err))
 
 //middleware
 app.use(morgan("dev"));
 app.use(cors({origin: true, credentials: true}));
 
 //routes
-
-
+const testRoutes = require('./routes/test')
+app.use('/', testRoutes);
 
 //ports
 const port = process.env.PORT || 8080;
